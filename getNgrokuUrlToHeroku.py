@@ -33,4 +33,3 @@ def GetNgrokuUrlToHeroku():
 
     return {'statusCode': 200, 'body': '{}'}
 
-
