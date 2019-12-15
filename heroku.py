@@ -10,8 +10,10 @@ import re
 import configparser
 
 # heroku config.set 環境変数名="値" でherokuの環境変数を指定して、os.environで取れる。
-YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
-YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
+#YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
+#YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
+YOUR_CHANNEL_ACCESS_TOKEN = "test"
+YOUR_CHANNEL_SECRET = "test"
 
 # line messaging api指定のリプライ、プッシュURL
 reply_url = 'https://api.line.me/v2/bot/message/reply'
