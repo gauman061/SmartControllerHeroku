@@ -531,9 +531,9 @@ class LineReplyMessage:
         inifile.add_section("ngrok")
         inifile.set("ngrok", "url", body)
         
-        inifile.read("./tmp/ngrokToHeroku.ini")
-        with open('ngrokToHeroku.ini', 'w') as file:
-        file.write(inifile)
+        
+        with open('.tmp/ngrokToHeroku.ini', 'w') as file:
+        inifile.write(file)
         
         
         inifile.close()
