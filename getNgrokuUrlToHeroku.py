@@ -32,4 +32,8 @@ def GetNgrokuUrlToHeroku():
     print("GetHerokuUrlToHeroku END")
 
     return {'statusCode': 200, 'body': '{}'}
-    
+
+
+if __name__ == "__main__":
+    port = 80
+    app.run(host='localhost', port=port)
