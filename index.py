@@ -535,8 +535,7 @@ class LineReplyMessage:
         with open('./tmp/ngrokToHeroku.ini', 'w') as file:
             inifile.write(file)
         
-        
-        inifile.close()
+        file.close()
 
         kadenJsonStr = request.params.file
         print("file:" + kadenJsonStr)
