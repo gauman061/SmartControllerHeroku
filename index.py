@@ -26,7 +26,7 @@ app = Bottle()
 
 
 # WEBHOOKで指定したURL(~/callback)にAPIから送られてくるJSONを受ける処理
-@app.route('/callback', method='POST')
+# @app.route('/callback', method='POST')
 def callback():
 
 
