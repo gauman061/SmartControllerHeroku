@@ -533,7 +533,7 @@ class LineReplyMessage:
         
         inifile.read("./tmp/ngrokToHeroku.ini")
         with open('ngrokToHeroku.ini', 'w') as file:
-        inifile.write(file)
+        file.write(inifile)
         
         
         inifile.close()
