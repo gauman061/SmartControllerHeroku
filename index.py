@@ -10,23 +10,21 @@ import re
 import configparser
 
 # heroku config.set 環境変数名="値" でherokuの環境変数を指定して、os.environで取れる。
-YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
-YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
+#YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
+#YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
+YOUR_CHANNEL_ACCESS_TOKEN = "test"
+YOUR_CHANNEL_SECRET = "test"
 
 # line messaging api指定のリプライ、プッシュURL
 reply_url = 'https://api.line.me/v2/bot/message/reply'
 push_url = 'https://api.line.me/v2/bot/message/push'
-
-ini = configparser.ConfigParser()
-ini.read('settings/ngrokToHeroku.ini', 'UTF-8')
-
 
 app = Bottle()
 
 
 
 # WEBHOOKで指定したURL(~/callback)にAPIから送られてくるJSONを受ける処理
-@app.route('/callback', method='POST')
+#@app.route('/callback', method='POST')
 def callback():
 
 
@@ -99,9 +97,15 @@ def reply_to_line(body):
                             # それぞれの家電の状態確認してjsonに反映するために、
                             # ラズパイのindex.pyにリクエスト送って、jsonを更新
 
+                            ini = configparser.ConfigParser()
+                            ini.read('settings/ngrokToHeroku.ini', 'UTF-8')
+
+
                             # ngrokで指定されるURL
                             target_url = ini['ngrok']['url']
                             headers = {'Content-Type': 'application/json'}
+
+                            ini.close
 
                             # 状態確認して状態のjson更新する。manipulateId=0→ステータス確認
                             requests.get(
@@ -514,32 +518,41 @@ class LineReplyMessage:
             headers=headers
         )
 
-# ngroku Urlの受け取り（別ファイル化がうまくいかなかったので間借りさせてもらいました。
-@app.route('/getNgrokuUrlToHeroku', method='POST')
-def getNgrokuUrlToHeroku():
+    @app.route('/getNgrokuUrlToHeroku', method='POST')
+    def getNgrokuUrlToHeroku():
+        
+        print("GetHerokuUrlToHeroku START")
+        
+        body = request.params.url
+        print("body:" + body)
 
-    print("GetHerokuUrlToHeroku START")
+        inifile = configparser.ConfigParser()
+        
+        inifile.add_section("ngrok")
+        inifile.set("ngrok", "url", body)
+        
+        inifile.read("./tmp/ngrokToHeroku.ini")
+        with open('ngrokToHeroku.ini', 'w') as file:
+        inifile.write(file)
+        
+        
+        inifile.close()
 
-    body = request.params.url
-    print("body:" + body)
+        kadenJsonStr = request.params.file
+        print("file:" + kadenJsonStr)
 
-    inifile = configparser.ConfigParser()
-    inifile.read("./settings/ngrokToHeroku.ini")
-    inifile.set("ngrok", "url", body)
+        kadenJson = open("./tmp/kaden.json","w")
+        kadenJson.write(kadenJsonStr)
+        
+        kadenJson.close()
+        
+        print("GetHerokuUrlToHeroku END")
 
-    kadenJsonStr = request.params.file
-    print("file:" + kadenJsonStr)
-
-    kadenJson = open("./settings/kaden.json", "w")
-    kadenJson.write(kadenJsonStr)
-
-    kadenJson.close()
-
-    print("GetHerokuUrlToHeroku END")
-
-    return {'statusCode': 200, 'body': '{}'}
-
+        return {'statusCode': 200, 'body': '{}'}
 
 if __name__ == "__main__":
-    port = int(os.getenv('PORT'))
+    port = 8080
+ 
+    
     app.run(host='localhost', port=port, server='gunicorn')
+
