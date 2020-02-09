@@ -67,7 +67,7 @@ def reply_to_line(body):
 
     # 家電名、状態、数などを取得
     # kaden.jsonは同ディレクトリ？
-    # kaden_json = open('kaden.json')
+    kaden_json = open('kaden.json')
     kaden_info = json.load(kaden_json)
 
 
@@ -90,36 +90,36 @@ def reply_to_line(body):
 
                 # メッセージが規定のものか調べる
                 # msg.jsonに規定メッセージ書く？
-                with open('kaden.json', 'r') as f:
-                    df = json.load(f)
+                # with open('kaden.json', 'r') as f:
+                df = json.load(f)
 
-                    for msg in df.values():
-                        if user_input == msg:
+                for msg in df.values():
+                    if user_input == msg:
 
-                            # それぞれの家電の状態確認してjsonに反映するために、
-                            # ラズパイのindex.pyにリクエスト送って、jsonを更新
+                        # それぞれの家電の状態確認してjsonに反映するために、
+                        # ラズパイのindex.pyにリクエスト送って、jsonを更新
 
-                            # ngrokで指定されるURL
-                            target_url = ini['ngrok']['url']
-                            headers = {'Content-Type': 'application/json'}
+                        # ngrokで指定されるURL
+                        target_url = ini['ngrok']['url']
+                        headers = {'Content-Type': 'application/json'}
 
-                            # 状態確認して状態のjson更新する。manipulateId=0→ステータス確認
-                            requests.get(
-                                target_url,
-                                params = {
-                                    'manipulateId': '0'
-                                },
-                                headers = headers
-                            )
+                        # 状態確認して状態のjson更新する。manipulateId=0→ステータス確認
+                        requests.get(
+                            target_url,
+                            params = {
+                                'manipulateId': '0'
+                            },
+                            headers = headers
+                        )
 
-                            responses.append(
-                                LineReplyMessage.mainmenu_response())
-
-                            break
-
-                    else:
                         responses.append(
-                            LineReplyMessage.make_text_response('メニュー見たいならメニューって入れろ'))
+                            LineReplyMessage.mainmenu_response())
+
+                        break
+
+                else:
+                    responses.append(
+                        LineReplyMessage.make_text_response('メニュー見たいならメニューって入れろ'))
 
             else:
                 responses.append(
