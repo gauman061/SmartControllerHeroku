@@ -656,8 +656,13 @@ def checkIniFile():
 
     file = open('./tmp/kaden.json', 'r')
     print(file)
+    file
 
-    return file
+    fileini = open('./tmp/ngrokToHeroku.ini', 'r')
+    print(fileini)
+
+
+    return file + fileini
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT'))
