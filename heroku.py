@@ -662,7 +662,7 @@ def checkIniFile():
     print(fileini)
 
 
-    return file + fileini
+    return fileini
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT'))
