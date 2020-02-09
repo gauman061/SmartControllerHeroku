@@ -67,7 +67,7 @@ def reply_to_line(body):
 
     # 家電名、状態、数などを取得
     # kaden.jsonは同ディレクトリ？
-    kaden_json = open('kaden.json')
+    kaden_json = open('./tmp/kaden.json')
     kaden_info = json.load(kaden_json)
 
 
