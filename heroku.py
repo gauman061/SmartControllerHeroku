@@ -67,7 +67,7 @@ def reply_to_line(body):
 
     # 家電名、状態、数などを取得
     # kaden.jsonは同ディレクトリ？
-    kaden_json = open('./tmp/kaden.json')
+    # kaden_json = open('kaden.json')
     kaden_info = json.load(kaden_json)
 
 
@@ -90,7 +90,7 @@ def reply_to_line(body):
 
                 # メッセージが規定のものか調べる
                 # msg.jsonに規定メッセージ書く？
-                with open('msg.json', 'r') as f:
+                with open('kaden.json', 'r') as f:
                     df = json.load(f)
 
                     for msg in df.values():
@@ -530,7 +530,7 @@ def getNgrokuUrlToHeroku():
     with open('./tmp/ngrokToHeroku.ini', 'w') as file:
         inifile.write(file)
 
-    file.close()
+    inifile.close()
 
     kadenJsonStr = request.params.file
     print("file:" + kadenJsonStr)
