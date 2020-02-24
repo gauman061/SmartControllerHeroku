@@ -96,14 +96,14 @@ def reply_to_line(body):
                     ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
                     # ngrokで指定されるURL
                     target_url = ini['ngrok']['url']
-                    method = 'GET'
+                    method = 'POST'
                     param = {
                         'manipulateId': '0'
                     }
                     headers = {'Content-Type': 'application/json'}
 
                     # 状態確認して状態のjson更新する。manipulateId=0→ステータス確認
-                    requests.get(
+                    requests.post(
                         target_url,
                         data=json.dumps(param),
                         headers=headers
@@ -168,7 +168,7 @@ def reply_to_line(body):
                 }
 
                 # getでindex.pyに送信
-                requests.get(
+                requests.post(
                     target_url,
                     params = {
                         'kadenId': str(kadenId),
@@ -194,8 +194,8 @@ def reply_to_line(body):
                 target_url = ini['ngrok']['url']
                 headers = {'Content-Type': 'application/json'}
 
-                # getでindex.pyに送信
-                requests.get(
+                # postでindex.pyに送信
+                requests.post(
                     target_url,
                     params = {
                         'kadenId': str(kadenId),
@@ -231,7 +231,7 @@ def reply_to_line(body):
                 target_url = ini['ngrok']['url']
                 headers = {'Content-Type': 'application/json'}
 
-                requests.get(
+                requests.post(
                     target_url,
                     params = {
                         'kadenId': str(kadenId),
@@ -257,7 +257,7 @@ def reply_to_line(body):
                 target_url = ini['ngrok']['url']
                 headers = {'Content-Type': 'application/json'}
 
-                requests.get(
+                requests.post(
                     target_url,
                     params = {
                         'kadenId': str(kadenId),
