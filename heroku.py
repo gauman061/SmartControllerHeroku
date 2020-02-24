@@ -20,6 +20,7 @@ push_url = 'https://api.line.me/v2/bot/message/push'
 ini = configparser.ConfigParser()
 ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
 
+__INDEXPY_PORT__ = '8080'
 
 app = Bottle()
 
@@ -95,7 +96,7 @@ def reply_to_line(body):
                     ini = configparser.ConfigParser()
                     ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
                     # ngrokで指定されるURL
-                    target_url = ini['ngrok']['url']
+                    target_url = ini['ngrok']['url'] + __INDEXPY_PORT__
                     method = 'POST'
                     data = {
                         'manipulateId': '0'
@@ -162,7 +163,7 @@ def reply_to_line(body):
                 ini = configparser.ConfigParser()
                 ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
                 # index.pyが受け取るURL
-                target_url = ini['ngrok']['url']
+                target_url = ini['ngrok']['url'] + __INDEXPY_PORT__
                 headers = {
                     'Content-Type': 'application/json'
                 }
@@ -191,7 +192,7 @@ def reply_to_line(body):
                 ini = configparser.ConfigParser()
                 ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
                 # index.pyが受け取るURL
-                target_url = ini['ngrok']['url']
+                target_url = ini['ngrok']['url'] + __INDEXPY_PORT__
                 headers = {'Content-Type': 'application/json'}
 
                 # postでindex.pyに送信
@@ -228,7 +229,7 @@ def reply_to_line(body):
                 ini = configparser.ConfigParser()
                 ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
 
-                target_url = ini['ngrok']['url']
+                target_url = ini['ngrok']['url'] + __INDEXPY_PORT__
                 headers = {'Content-Type': 'application/json'}
 
                 requests.post(
@@ -254,11 +255,11 @@ def reply_to_line(body):
 
                 ini = configparser.ConfigParser()
                 ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
-                target_url = ini['ngrok']['url']
+                target_url = ini['ngrok']['url'] + __INDEXPY_PORT__
                 headers = {'Content-Type': 'application/json'}
 
                 requests.post(
-                    target_url,
+                    target_url ,
                     data = {
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
