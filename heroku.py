@@ -171,7 +171,7 @@ def reply_to_line(body):
                 # getでindex.pyに送信
                 requests.post(
                     target_url,
-                    data = {
+                    form = {
                         'kadenId': str(kadenId),
                         'manipulateId': '1'
                     },
@@ -198,7 +198,7 @@ def reply_to_line(body):
                 # postでindex.pyに送信
                 requests.post(
                     target_url,
-                    params = {
+                    form = {
                         'kadenId': str(kadenId),
                         'manipulateId': '2'
                     },
@@ -234,7 +234,7 @@ def reply_to_line(body):
 
                 requests.post(
                     target_url,
-                    params = {
+                    form = {
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
                         'manipulateId': '3',
@@ -260,7 +260,7 @@ def reply_to_line(body):
 
                 requests.post(
                     target_url ,
-                    data = {
+                    form = {
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
                         'manipulateId': '4',
