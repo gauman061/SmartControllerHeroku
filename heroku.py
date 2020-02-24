@@ -171,10 +171,11 @@ def reply_to_line(body):
                 # getでindex.pyに送信
                 requests.post(
                     target_url,
-                    {
+                    data=json.dumps({
                         'kadenId': str(kadenId),
                         'manipulateId': '1'
-                    }
+                    }),
+                    headers=headers
                 )
 
 
