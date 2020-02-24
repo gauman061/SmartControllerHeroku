@@ -198,10 +198,10 @@ def reply_to_line(body):
                 # postでindex.pyに送信
                 requests.post(
                     target_url,
-                    {
+                    data=json.dumps({
                         'kadenId': str(kadenId),
                         'manipulateId': '2'
-                    },
+                    }),
                     headers = headers
                 )
 
@@ -234,11 +234,11 @@ def reply_to_line(body):
 
                 requests.post(
                     target_url,
-                    {
+                    data=json.dumps({
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
                         'manipulateId': '3',
-                    },
+                    }),
                     headers = headers
                 )
 
@@ -260,11 +260,11 @@ def reply_to_line(body):
 
                 requests.post(
                     target_url ,
-                    {
+                    data=json.dumps({
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
                         'manipulateId': '4',
-                    },
+                    }),
                     headers = headers
                 )
 
