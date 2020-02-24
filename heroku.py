@@ -97,7 +97,7 @@ def reply_to_line(body):
                     # ngrokで指定されるURL
                     target_url = ini['ngrok']['url']
                     method = 'POST'
-                    param = {
+                    data = {
                         'manipulateId': '0'
                     }
                     headers = {'Content-Type': 'application/json'}
@@ -170,7 +170,7 @@ def reply_to_line(body):
                 # getでindex.pyに送信
                 requests.post(
                     target_url,
-                    params = {
+                    data = {
                         'kadenId': str(kadenId),
                         'manipulateId': '1'
                     },
@@ -259,7 +259,7 @@ def reply_to_line(body):
 
                 requests.post(
                     target_url,
-                    params = {
+                    data = {
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
                         'manipulateId': '4',
