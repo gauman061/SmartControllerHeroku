@@ -20,7 +20,7 @@ push_url = 'https://api.line.me/v2/bot/message/push'
 ini = configparser.ConfigParser()
 ini.read('./tmp/ngrokToHeroku.ini', 'UTF-8')
 
-__INDEXPY_PORT__ = '8080'
+__INDEXPY_PORT__ = ':8080'
 
 app = Bottle()
 
