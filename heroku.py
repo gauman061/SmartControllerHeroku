@@ -106,7 +106,7 @@ def reply_to_line(body):
                     # 状態確認して状態のjson更新する。manipulateId=0→ステータス確認
                     requests.post(
                         target_url,
-                        data=json.dumps(param),
+                        json.dumps(param),
                         headers=headers
                     )
 
