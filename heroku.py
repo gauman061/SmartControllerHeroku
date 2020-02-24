@@ -98,7 +98,7 @@ def reply_to_line(body):
                     # ngrokで指定されるURL
                     target_url = ini['ngrok']['url'] + __INDEXPY_PORT__
                     method = 'POST'
-                    data = {
+                    param = {
                         'manipulateId': '0'
                     }
                     headers = {'Content-Type': 'application/json'}
@@ -106,7 +106,7 @@ def reply_to_line(body):
                     # 状態確認して状態のjson更新する。manipulateId=0→ステータス確認
                     requests.post(
                         target_url,
-                        json.dumps(param),
+                        param,
                         headers=headers
                     )
 
