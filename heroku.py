@@ -218,7 +218,7 @@ def reply_to_line(body):
                     json.dumps({
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
-                        'manipulateId': '3',
+                        'manipulateId': '3'
                     }),
                     headers = headers
                 )
@@ -240,7 +240,7 @@ def reply_to_line(body):
                     json.dumps({
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
-                        'manipulateId': '4',
+                        'manipulateId': '4'
                     }),
                     headers = headers
                 )
