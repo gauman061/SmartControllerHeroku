@@ -183,7 +183,7 @@ def reply_to_line(body):
                 # postでindex.pyに送信
                 requests.post(
                     target_url,
-                    data=json.dumps({
+                    json.dumps({
                         'kadenId': str(kadenId),
                         'manipulateId': '2'
                     }),
@@ -237,7 +237,7 @@ def reply_to_line(body):
                 headers = {'Content-Type': 'application/json'}
                 requests.post(
                     target_url ,
-                    data=json.dumps({
+                    json.dumps({
                         'kadenId': str(kadenId),
                         'timer_datetime': str(timer_datetime),
                         'manipulateId': '4',
