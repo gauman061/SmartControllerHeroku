@@ -26,6 +26,8 @@ POWER_OFF = 2
 TIMER_FROM = 3
 TIMER_TO = 4
 
+manipulateId = 1
+
 line_events = {
     'show_main_menu': 'message',
     'show_manipulate_menu': 'postback'
