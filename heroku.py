@@ -81,7 +81,6 @@ REPLY_CLASS_NAME = 'LineReplyMessage.'
 # WEBHOOKで指定したURL(~/callback)にAPIから送られてくるJSONを受ける処理
 @app.route('/callback', method='POST')
 def callback():
-
     # -------------------------------------------
     # ここからlineからのアクセスか判別する処理
 
@@ -96,10 +95,8 @@ def callback():
         text_body.encode('utf-8'),
         hashlib.sha256).digest()
 
-
     # ダイジェスト値をBase64エンコードしてUTF-8でデコード
     signature = base64.b64encode(hash).decode('utf-8')
-
 
     # リクエストヘッダーとsignatureの値が正しいか判定し、
     # line以外からのアクセスの場合強制終了させる
@@ -114,9 +111,7 @@ def callback():
     return {'statusCode': 200, 'body': '{}'}
 
 
-
 class Event:
-
 
     def __init__(self):
         kaden_json = open('./tmp/kaden.json')
@@ -127,7 +122,6 @@ class Event:
 
         # ngrokで指定されるURL
         self.target_url = ini['ngrok']['url'] + __INDEXPY_URL__
-
 
     def reply_to_line(self, body):
 
@@ -140,7 +134,6 @@ class Event:
                 if type == line_events[key]:
                     responses = eval('self.' + key)(event[type])
                     LineReplyMessage.send_reply(replyToken, responses)
-
 
     # messageの場合はこのメソッドへ
     def show_main_menu(self, param):
@@ -157,10 +150,10 @@ class Event:
 
                 return self.create_reply_menu(COMMON_REPLY_EVENTS['SHOW_MENU'])
             else:
-                return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], COMMON_REPLY_EVENTS_WORDS['NOT_SHOW_MENU_WORD'])
+                return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'],
+                                                 COMMON_REPLY_EVENTS_WORDS['NOT_SHOW_MENU_WORD'])
         else:
             return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], COMMON_REPLY_EVENTS_WORDS['NOT_TEXT'])
-
 
     # postbackの場合はこのメソッドへ
     def show_manipulate_menu(self, param):
@@ -183,14 +176,12 @@ class Event:
         elif re.match(r'.*timer.*', postback_data):
             return self.manipulate_timer(postback_data, param)
 
-
     # 返すテキストを作るメソッド
     def create_reply_message(self, event, *args):
 
         func = REPLY_CLASS_NAME + COMMON_REPLY_EVENTS_FUNCTION[event]
         res = [eval(func)(args[0])] if len(args) == 1 else [eval(func)(args[0], args[1])]
         return res
-
 
     # 返すメニューを作るメソッド
     def create_reply_menu(self, event, *args):
@@ -207,7 +198,6 @@ class Event:
 
         return res
 
-
     # 家電を選ぶメニューを返すメソッド
     def select_kaden_menu(self, postback_data):
 
@@ -219,7 +209,6 @@ class Event:
         # 家電を選ぶ画面
         else:
             return self.create_reply_menu(COMMON_REPLY_EVENTS['SHOW_SELECT_KADEN_MENU'], self.kaden_info)
-
 
     # 電源関連の操作メソッド
     def manipulate_power(self, postback_data):
@@ -249,7 +238,6 @@ class Event:
 
             msg = self.create_manipulate_reply_message(POWER_OFF, self.kaden_info[selected_kadenId]['name'])
             return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
-
 
     # タイマー関連の操作メソッド
     def manipulate_timer(self, postback_data, param):
@@ -289,7 +277,6 @@ class Event:
             msg = self.create_manipulate_reply_message(TIMER_TO, params, self.kaden_info[selected_kadenId]['name'])
             return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
 
-
     # 操作のメッセージを作るメソッド
     def create_manipulate_reply_message(self, event, *args):
 
@@ -298,7 +285,6 @@ class Event:
         else:
             res = args[0] + COMMON_REPLY_EVENTS_TEXT[event][0] + args[1] + COMMON_REPLY_EVENTS_TEXT[event][1]
         return res
-
 
     # ラズパイのindexにrequestを投げる
     ### len(args=1) => ステータス反映 manipulateIdのみ
@@ -311,12 +297,11 @@ class Event:
         if len(args) >= 2: data['kadenId'] = str(args[1])
         if len(args) == 3: data['timer_datetime'] = str(args[2])
         responses = requests.post(
-            self.target_url ,
+            self.target_url,
             json.dumps(data),
-            headers = headers
+            headers=headers
         )
         return responses
-
 
     # index.pyから受け取ったresponsesでkaden.jsonを更新する
     def update_kaden_json(self, responses):
@@ -327,9 +312,7 @@ class Event:
             json.dump(data, f, indent=4)
 
 
-
 class LineReplyMessage:
-
     # lineのリプライ先URL
     ReplyEndpoint = reply_url
 
@@ -343,16 +326,16 @@ class LineReplyMessage:
                 'type': 'buttons',
                 'actions': [
                     {
-                        "type":"datetimepicker",
-                        "label":"入",
-                        "data":"action=timer&status=from&kadenId=" + selected_timer_kadenId,
-                        "mode":"datetime"
+                        "type": "datetimepicker",
+                        "label": "入",
+                        "data": "action=timer&status=from&kadenId=" + selected_timer_kadenId,
+                        "mode": "datetime"
                     },
                     {
-                        "type":"datetimepicker",
-                        "label":"切",
-                        "data":"action=timer&status=to&kadenId=" + selected_timer_kadenId,
-                        "mode":"datetime"
+                        "type": "datetimepicker",
+                        "label": "切",
+                        "data": "action=timer&status=to&kadenId=" + selected_timer_kadenId,
+                        "mode": "datetime"
                     }
                 ],
                 'text': kaden_info[selected_timer_kadenId]['name'] + 'のタイマーを設定'
@@ -374,56 +357,56 @@ class LineReplyMessage:
                     "aspectRatio": "20:13",
                     "aspectMode": "cover"
                 },
-            "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "text",
-                    "text": "Home Appliances Controller",
-                    "weight": "bold",
-                    "size": "lg"
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "Home Appliances Controller",
+                            "weight": "bold",
+                            "size": "lg"
+                        }
+                    ]
+                },
+                "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "md",
+                    "contents": [
+                        {
+                            "type": "button",
+                            "style": "primary",
+                            "height": "sm",
+                            "color": "#ff7f50",
+                            "action": {
+                                "type": "postback",
+                                "label": "Manipulate",
+                                "data": "select=manipulate"
+                            }
+                        },
+                        {
+                            "type": "button",
+                            "style": "secondary",
+                            "height": "sm",
+                            "color": "#e6e6fa",
+                            "action": {
+                                "type": "postback",
+                                "label": "Show Status",
+                                "data": "select=status"
+                            }
+                        }
+                    ]
                 }
-            ]
-            },
-            "footer": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "md",
-                "contents": [
-                    {
-                        "type": "button",
-                        "style": "primary",
-                        "height": "sm",
-                        "color": "#ff7f50",
-                        "action": {
-                            "type": "postback",
-                            "label": "Manipulate",
-                            "data": "select=manipulate"
-                        }
-                    },
-                    {
-                        "type": "button",
-                        "style": "secondary",
-                        "height": "sm",
-                        "color": "#e6e6fa",
-                        "action": {
-                            "type": "postback",
-                            "label": "Show Status",
-                            "data": "select=status"
-                        }
-                    }
-                ]
             }
         }
-    }
 
     @staticmethod
     def manipulate_kaden_menu(kaden_info):
 
         kaden_manipulate_list = []
 
-        for i in range(1, len(kaden_info)+1):
+        for i in range(1, len(kaden_info) + 1):
 
             if kaden_info[str(i)]['name'] == 'エアコン':
                 kaden_image = "https://www.kajitaku.com/column/wp-content/uploads/2017/12/shutterstock_315007316.jpg"
@@ -459,11 +442,11 @@ class LineReplyMessage:
                                         "flex": 0
                                     },
                                     {
-                                    "type": "text",
-                                    "text": kaden_info[str(i)]['name'],
-                                    "size": "xs",
-                                    "margin": "md",
-                                    "flex": 0
+                                        "type": "text",
+                                        "text": kaden_info[str(i)]['name'],
+                                        "size": "xs",
+                                        "margin": "md",
+                                        "flex": 0
                                     }
                                 ]
                             }
@@ -543,12 +526,11 @@ class LineReplyMessage:
             }
         }
 
-
     @staticmethod
     def show_status(kaden_info):
 
         kaden_status_list = []
-        for i in range(1, len(kaden_info)+1):
+        for i in range(1, len(kaden_info) + 1):
 
             if kaden_info[str(i)]['name'] == 'エアコン':
                 kaden_image = "https://www.kajitaku.com/column/wp-content/uploads/2017/12/shutterstock_315007316.jpg"
@@ -561,7 +543,6 @@ class LineReplyMessage:
                 kaden_status = 'ON'
             else:
                 kaden_status = 'OFF'
-
 
             kaden_status_list.append(
                 {
@@ -590,11 +571,11 @@ class LineReplyMessage:
                                         "flex": 0
                                     },
                                     {
-                                    "type": "text",
-                                    "text": kaden_info[str(i)]['name'],
-                                    "size": "xs",
-                                    "margin": "md",
-                                    "flex": 0
+                                        "type": "text",
+                                        "text": kaden_info[str(i)]['name'],
+                                        "size": "xs",
+                                        "margin": "md",
+                                        "flex": 0
                                     }
                                 ]
                             },
@@ -611,11 +592,11 @@ class LineReplyMessage:
                                         "flex": 0
                                     },
                                     {
-                                    "type": "text",
-                                    "text": kaden_status,
-                                    "size": "xs",
-                                    "margin": "md",
-                                    "flex": 0
+                                        "type": "text",
+                                        "text": kaden_status,
+                                        "size": "xs",
+                                        "margin": "md",
+                                        "flex": 0
                                     }
                                 ]
                             },
@@ -632,11 +613,11 @@ class LineReplyMessage:
                                         "flex": 0
                                     },
                                     {
-                                    "type": "text",
-                                    "text": kaden_info[str(i)]['signal'],
-                                    "size": "xs",
-                                    "margin": "md",
-                                    "flex": 0
+                                        "type": "text",
+                                        "text": kaden_info[str(i)]['signal'],
+                                        "size": "xs",
+                                        "margin": "md",
+                                        "flex": 0
                                     }
                                 ]
                             },
@@ -654,7 +635,6 @@ class LineReplyMessage:
             }
         }
 
-
     # テキストメッセージ作成
     @staticmethod
     def make_text_response(text):
@@ -662,7 +642,6 @@ class LineReplyMessage:
             'type': 'text',
             'text': text
         }
-
 
     # リプライ定義
     @staticmethod
@@ -693,7 +672,7 @@ def getNgrokuUrlToHeroku():
 
     url = request.params.url
 
-    if url== "" :
+    if url != "":
         print("url:" + url)
         inifile = configparser.ConfigParser()
         inifile.add_section("ngrok")
@@ -713,6 +692,7 @@ def getNgrokuUrlToHeroku():
 
     return {'statusCode': 200, 'body': '{}'}
 
+
 @app.route('/checkIniFile', method='GET')
 def checkIniFile():
     print("GetHerokuUrlToHeroku START")
@@ -726,8 +706,8 @@ def checkIniFile():
     fileini = open('./tmp/ngrokToHeroku.ini', 'r')
     print(fileini)
 
-
     return fileini
+
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT'))
