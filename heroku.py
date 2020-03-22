@@ -154,7 +154,7 @@ class Event:
                 response = self.request_to_index(SHOW_STATUS)
 
                 # response情報を元にkaden.jsonの更新
-                self.update_kaden_json(response)
+                #self.update_kaden_json(response)
 
                 return self.create_reply_menu(COMMON_REPLY_EVENTS['SHOW_MENU'])
             else:
