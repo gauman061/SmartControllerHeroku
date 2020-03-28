@@ -661,6 +661,7 @@ class LineReplyMessage:
     # テキストメッセージ作成
     @staticmethod
     def make_text_response(text):
+        print(text)
         return {
             'type': 'text',
             'text': text
@@ -687,7 +688,26 @@ class LineReplyMessage:
             data=json.dumps(reply),
             headers=headers
         )
+    # リプライ定義
+    @staticmethod
+    def send_reply2(replyToken, messages):
+        reply = {
+            'replyToken': replyToken,
+            'messages': messages
+        }
 
+        # ヘッダー作成
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer {}'.format(YOUR_CHANNEL_ACCESS_TOKEN)
+        }
+
+        # jsonでbotに返す
+        requests.post(
+            reply_url,
+            data=reply,
+            headers=headers
+        )
 
 # ngroku Urlの受け取り（別ファイル化がうまくいかなかったので間借りさせてもらいました。
 @app.route('/getNgrokuUrlToHeroku', method='POST')
