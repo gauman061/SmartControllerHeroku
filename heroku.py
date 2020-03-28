@@ -154,7 +154,7 @@ class Event:
                 response = self.request_to_index(SHOW_STATUS)
 
                 # response情報を元にkaden.jsonの更新
-                self.update_kaden_json(response)
+                #self.update_kaden_json(response)
 
                 return self.create_reply_menu(COMMON_REPLY_EVENTS['SHOW_MENU'])
             else:
@@ -265,11 +265,16 @@ class Event:
             selected_kadenId = postback_data[33:]
             kadenId = selected_kadenId
 <<<<<<< HEAD
+<<<<<<< HEAD
             timer_datetime = param['params']['datetime']
             print("入タイマー : " + timer_datetime)
 =======
             timer_datetime = postback_params
 >>>>>>> 301ed0faadf69a095e6a396a81e3e80cebb6fb90
+=======
+            timer_datetime = param['params']['datetime']
+            print("入タイマー : " + timer_datetime)
+>>>>>>> c6f30ace5bf360ee8df92baea2fdd42a76a5d147
 
             response = self.request_to_index(TIMER_FROM, kadenId, timer_datetime)
 
@@ -277,11 +282,15 @@ class Event:
             # self.update_kaden_json(response)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             msg = self.create_manipulate_reply_message(TIMER_FROM, timer_datetime, self.kaden_info[selected_kadenId]['name'])
 =======
             params = param['params']['datetime']
             msg = self.create_manipulate_reply_message(TIMER_FROM, params, self.kaden_info[selected_kadenId]['name'])
 >>>>>>> 301ed0faadf69a095e6a396a81e3e80cebb6fb90
+=======
+            msg = self.create_manipulate_reply_message(TIMER_FROM, timer_datetime, self.kaden_info[selected_kadenId]['name'])
+>>>>>>> c6f30ace5bf360ee8df92baea2fdd42a76a5d147
             return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
 
         # 切タイマーの画面
@@ -289,11 +298,16 @@ class Event:
             selected_kadenId = postback_data[31:]
             kadenId = selected_kadenId
 <<<<<<< HEAD
+<<<<<<< HEAD
             timer_datetime = param['params']['datetime']
             print("切タイマー : " + timer_datetime)
 =======
             timer_datetime = postback_params
 >>>>>>> 301ed0faadf69a095e6a396a81e3e80cebb6fb90
+=======
+            timer_datetime = param['params']['datetime']
+            print("切タイマー : " + timer_datetime)
+>>>>>>> c6f30ace5bf360ee8df92baea2fdd42a76a5d147
 
             response = self.request_to_index(TIMER_TO, kadenId, timer_datetime)
 
@@ -301,11 +315,15 @@ class Event:
             # self.update_kaden_json(response)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             msg = self.create_manipulate_reply_message(TIMER_TO, timer_datetime, self.kaden_info[selected_kadenId]['name'])
 =======
             params = param['params']['datetime']
             msg = self.create_manipulate_reply_message(TIMER_TO, params, self.kaden_info[selected_kadenId]['name'])
 >>>>>>> 301ed0faadf69a095e6a396a81e3e80cebb6fb90
+=======
+            msg = self.create_manipulate_reply_message(TIMER_TO, timer_datetime, self.kaden_info[selected_kadenId]['name'])
+>>>>>>> c6f30ace5bf360ee8df92baea2fdd42a76a5d147
             return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
 
 
