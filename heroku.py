@@ -661,17 +661,10 @@ class LineReplyMessage:
     # テキストメッセージ作成
     @staticmethod
     def make_text_response(text):
-	print("text:" + str(text))
-	
-	testJson = str({
-            'type': 'text',
-            'text': text
-        })
 
-        print("text=json:" + testJson )
         return {
             'type': 'text',
-            'text': text
+            'text': str(text)
         }
 
 
