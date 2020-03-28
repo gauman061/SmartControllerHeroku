@@ -732,4 +732,4 @@ def checkIniFile():
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT'))
-    app.run(host='localhost', port=port, server='gunicorn',timeout=1000)
+    app.run(host='localhost', port=port, server='gunicorn',timeout=10000)
