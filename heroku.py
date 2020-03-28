@@ -120,7 +120,7 @@ class Event:
 
 
     def __init__(self):
-        kaden_json = open('./tmp/kaden.json')
+        kaden_json = open('./tmp/kaden.json', mode='r')
         self.kaden_info = json.load(kaden_json)
 
         ini = configparser.ConfigParser()
