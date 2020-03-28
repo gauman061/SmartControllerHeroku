@@ -120,7 +120,7 @@ class Event:
 
 
     def __init__(self):
-        kaden_json = open('./tmp/kaden.json', mode='r')
+        kaden_json = open('./tmp/kaden.json')
         self.kaden_info = json.load(kaden_json)
 
         ini = configparser.ConfigParser()
@@ -236,8 +236,7 @@ class Event:
             # self.update_kaden_json(response)
 
             msg = self.create_manipulate_reply_message(POWER_ON, self.kaden_info[selected_kadenId]['name'])
-            res = response if response != '' else msg
-            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], res)
+            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
 
         # 電源OFF
         elif re.match(r'action=off.+', postback_data):
@@ -250,8 +249,7 @@ class Event:
             # self.update_kaden_json(response)
 
             msg = self.create_manipulate_reply_message(POWER_OFF, self.kaden_info[selected_kadenId]['name'])
-            res = response if response != '' else msg
-            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], res)
+            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
 
 
     # タイマー関連の操作メソッド
@@ -661,10 +659,9 @@ class LineReplyMessage:
     # テキストメッセージ作成
     @staticmethod
     def make_text_response(text):
-
         return {
             'type': 'text',
-            'text': str(text)
+            'text': text
         }
 
 
@@ -688,26 +685,7 @@ class LineReplyMessage:
             data=json.dumps(reply),
             headers=headers
         )
-    # リプライ定義
-    @staticmethod
-    def send_reply2(replyToken, messages):
-        reply = {
-            'replyToken': replyToken,
-            'messages': messages
-        }
 
-        # ヘッダー作成
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer {}'.format(YOUR_CHANNEL_ACCESS_TOKEN)
-        }
-
-        # jsonでbotに返す
-        requests.post(
-            reply_url,
-            data=reply,
-            headers=headers
-        )
 
 # ngroku Urlの受け取り（別ファイル化がうまくいかなかったので間借りさせてもらいました。
 @app.route('/getNgrokuUrlToHeroku', method='POST')
