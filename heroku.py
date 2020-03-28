@@ -235,8 +235,8 @@ class Event:
             # response情報を元にkaden.jsonの更新
             # self.update_kaden_json(response)
 
-            msg = self.create_manipulate_reply_message(POWER_ON, self.kaden_info[selected_kadenId]['name'])
-            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
+            # msg = self.create_manipulate_reply_message(POWER_ON, self.kaden_info[selected_kadenId]['name'])
+            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], response)
 
         # 電源OFF
         elif re.match(r'action=off.+', postback_data):
@@ -248,8 +248,8 @@ class Event:
             # response情報を元にkaden.jsonの更新
             # self.update_kaden_json(response)
 
-            msg = self.create_manipulate_reply_message(POWER_OFF, self.kaden_info[selected_kadenId]['name'])
-            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], msg)
+            # msg = self.create_manipulate_reply_message(POWER_OFF, self.kaden_info[selected_kadenId]['name'])
+            return self.create_reply_message(COMMON_REPLY_EVENTS['RETURN_TEXT'], response)
 
 
     # タイマー関連の操作メソッド
@@ -732,4 +732,4 @@ def checkIniFile():
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT'))
-    app.run(host='localhost', port=port, server='gunicorn',timeout=10000)
+    app.run(host='localhost', port=port, server='gunicorn')
