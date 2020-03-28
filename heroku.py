@@ -662,12 +662,12 @@ class LineReplyMessage:
     @staticmethod
     def make_text_response(text):
         print("text:" + str(text))
-	test= {
+	testJson = str({
             'type': 'text',
             'text': text
-        }
+        })
 
-        print("text=json:" + str(test) )
+        print("text=json:" + testJson )
         return {
             'type': 'text',
             'text': text
