@@ -661,7 +661,7 @@ class LineReplyMessage:
     # テキストメッセージ作成
     @staticmethod
     def make_text_response(text):
-        print("text:" + text)
+        print("text:" + str(text))
         return {
             'type': 'text',
             'text': text
